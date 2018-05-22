@@ -1,0 +1,47 @@
+<div class="container-fluid p-0">
+
+  <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+    <div class="my-auto">
+      <h1 class="mb-0">secret
+      <span class="text-primary">board</span>
+      </h1>
+      <div class="subheading mb-5">익명게시판입니다.</div>
+      <p>NEW를 눌러 원하는 글을 자유롭게 쓰세요.</p>
+      <p>게시글 목록은 아래에 있습니다.</p>
+    </div>
+  </section>
+  
+  <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
+    <div class="my-auto">
+      <h2 class="mb-5">List</h2>
+      
+      <%@posts.each do |x|%>
+      <div class="resume-item d-flex flex-column flex-md-row mb-5">
+        <div class="resume-content mr-auto">
+          <h3 class="mb-0"><%=x.title%></h3>
+          <div class="subheading mb-3">no name</div>
+          <p><%=x.content%></p>
+          <a href='/home/edit/<%=x.id%>' class="btn btn-primary">edit</a>
+          <a href='/home/destroy/<%=x.id%>'class="btn btn-primary">delete</a>
+        </div>
+      </div>
+        <hr>
+        <% x.comments.each do |c|%>
+          댓 글: <%=c.content%>
+          <a href = '/comments/edit/<%=c.id%>'>수정</a>
+          <a href = 'comments/delete/<%=c.id%>'>삭제</a><br>
+        <%end%>
+        <br>
+        ------------------------------------------------------------------------<br>
+        <form action = '/home/index/<%=x.id%>/create' method=post>
+          <%=hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <input type='textarea' name='comment' placeholder="댓글입력">
+          <button type = 'submit' class ='btn btn-outline-primary'>댓글달기!</button>
+        </form>
+        <br>
+      <%end%>
+    </div>
+    
+  </section>
+  
+</div>
